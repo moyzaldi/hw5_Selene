@@ -1,5 +1,8 @@
+import time
+
 from selene import browser, be, have, by
 import os
+
 
 firstName = 'Ivan'
 lastName = 'Ivanov'
@@ -15,10 +18,10 @@ hobbies = 'Reading'
 
 images = 'butterflies.png'
 currentAddress = 'Russia'
-subjects = 'biology'
+subjects = 'Computer Science'
 
-state = "Uttar Pradesh"
-city = "Merrut"
+state = 'Uttar Pradesh'
+city = 'Merrut'
 
 
 def test_type_registration_form(browser_settings):
@@ -37,7 +40,7 @@ def test_type_registration_form(browser_settings):
     browser.element('#hobbiesWrapper').element(by.text(hobbies)).click()
     browser.element("#uploadPicture").send_keys(os.path.abspath(f"../images/{images}"))
     browser.element('#currentAddress').should(be.blank).type(currentAddress)
-    browser.element('#subjectsInput').should(be.blank).type(subjects)
+    browser.element('#subjectsInput').should(be.blank).type(subjects).press_enter()
     browser.element('#state').click().element(by.text(state)).click()
     browser.element('#city').click().element(by.text(city)).click()
 
@@ -48,8 +51,9 @@ def test_type_registration_form(browser_settings):
     browser.element(("[class='table-responsive']")).should(have.text(genter))
     browser.element(("[class='table-responsive']")).should(have.text(userNumber))
     browser.element(("[class='table-responsive']")).should(have.text(f'{day} {month},{year}'))
-    # browser.element(("[class='table-responsive']")).should(have.text(subjects))
+    browser.element(("[class='table-responsive']")).should(have.text(subjects))
     browser.element(("[class='table-responsive']")).should(have.text(hobbies))
     browser.element(("[class='table-responsive']")).should(have.text(images))
     browser.element(("[class='table-responsive']")).should(have.text(currentAddress))
     browser.element(("[class='table-responsive']")).should(have.text(f'{state} {city}'))
+
